@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(10, 80, 200);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            margin: auto;
+            width: 1000px;
+            border-collapse: collapse;
+            border: 1px solid #dddddd;
+            background-color: #fff;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .action-buttons button {
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+        <h2>Between Date Search Result</h2>
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>Application Id</th>
+                <th>User Id</th>
+                <th>Name</th>
+                <th>Date of birth</th>
+                <th>Gender</th>
+                <th>Birth Place</th>
+                <th>Father Name</th>
+                <th>Mother Name</th>
+                <th>Mobile Number</th>
+                <th>Permenat Address</th>
+                <th>Postal Address</th>
+                <th>E-Mail</th>
+                <th>Status</th>
+                <th>Change Status</th>
+                <th>Actions</th>
+            </tr>
+            <tr th:each="betweenDate: ${betweenDate}">
+                <td th:text="${betweenDate.id}"></td>
+                <td th:text="${betweenDate.applicationid}"></td>
+                <td th:text="${betweenDate.userid}"></td>
+                <td th:text="${betweenDate.name}"></td>
+                <td th:text="${betweenDate.DoB}"></td>
+                <td th:text="${betweenDate.gender}"></td>
+                <td th:text="${betweenDate.birthplace}"></td>
+                <td th:text="${betweenDate.fathername}"></td>
+                <td th:text="${betweenDate.mothername}"></td>
+                <td th:text="${betweenDate.mobno}"></td>
+                <td th:text="${betweenDate.permanetadd}"></td>
+                <td th:text="${betweenDate.postaladd}"></td>
+                <td th:text="${betweenDate.email}"></td>
+                <td th:text="${betweenDate.status}"></td>
+                <td>
+                    <form th:action="@{/Admindashboard/applications/update-status}" method="post">
+                        <input type="hidden" th:name="id" th:value="${betweenDate.id}">
+                        <input type="hidden" th:name="id" th:value="${betweenDate.id}">
+                        <select name="status">
+                            <option value="approve">Approve</option>
+                            <option value="pending">Pending</option>
+                            <option value="reject">Reject</option>
+                        </select>
+                        <button type="submit">Update</button>
+                    </form>
+                </td>
+                <td> 
+                    <a th:href="@{/View/{id}(id=${betweenDate.id})}">View</a>
+                    <a th:href="@{/Admindashboard/delete/{id}(id=${betweenDate.id})}" onclick="return confirm('Are you sure?')">Delete</a>
+                </td>
+            </tr>
+        </table>        
+    </div>
+</body>
+</html>
