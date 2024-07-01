@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>OBCS Verification</title>
+    <style>
+      /*style.css*/
+		body {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-family: sans-serif;
+			line-height: 1.5;
+			min-height: 100vh;
+			background-color: rgb(10, 80, 200);
+			flex-direction: column;
+			margin: 0;
+		}
+
+		.main {
+			background: white;
+			border-radius: 15px;
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+			padding: 10px 20px;
+			transition: transform 0.2s;
+			width: 500px;
+			text-align: center;
+		}
+
+		h1 {
+			color: orangered;
+		}
+
+		label {
+			display: block;
+			width: 100%;
+			margin-top: 10px;
+			margin-bottom: 5px;
+			text-align: left;
+			color: #555;
+			font-weight: bold;
+		}
+
+
+		input {
+			display: block;
+			background-color: rgb(10, 80, 200);
+			width: 100%;
+			margin-bottom: 15px;
+			padding: 10px;
+			box-sizing: border-box;
+			border: 1px solid #ddd;
+			border-radius: 10px;
+			color: white;
+		}
+
+		button {
+			padding: 15px;
+			border-radius: 10px;
+			margin-top: 15px;
+			margin-bottom: 15px;
+			border: none;
+			color: white;
+			cursor: pointer;
+			background-color: green;
+			width: 100%;
+			font-size: 16px;
+		}
+
+		.wrap {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+    </style>
+</head>
+<body>
+	<div class="main">
+		<h1>Online Birth Certificate Service</h1>
+		<h3>Verification</h3>
+		<form action="/Verify/{mobno}/{applicationid}" method="get">
+			<label for="mobno">
+				Mobile No:
+			</label>
+			<input type="text"
+				id="mobno"
+				name="mobno"
+				placeholder="Enter Your Mobile No" required>
+		
+			<label for="applicationid">
+				Application Id:
+			</label>
+			<input type="text"
+				id="applicationid"
+				name="applicationid"
+				placeholder="Enter your Application Id" required>
+		
+			<div class="wrap">
+				<button type="submit">
+					Verify
+				</button>
+			</div>
+		</form>
+		
+			<p>Return :-
+				<a href="/Index"
+				style="text-decoration: none;">
+					Home
+				</a>
+			</p>
+	</div>	
+	</body>
+</html>

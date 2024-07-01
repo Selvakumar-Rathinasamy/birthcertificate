@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: rgb(10, 80, 200);
+            margin: 0;
+            margin-bottom: 2em;
+            padding: 0;
+        }
+
+        .certificate {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            margin: 50px auto;
+            border: 1px solid black;
+            padding: 2em;
+        }
+        .logo{
+            display: flex;
+            justify-content: flex-start;
+            height: 25px;
+            padding: 5px;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #333;
+        }
+        .Title{
+            text-align: center;
+            line-height: 1px;
+            border: 1px solid black;
+            border-radius: 10px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: auto;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: justify;
+            font-style: oblique;
+        }
+
+        h2 {
+            font-size: 28px;
+            color: #333;
+            margin-top: 10px;
+        }
+
+        h3 {
+            font-size: 22px;
+            color: #333;
+            margin-top: 10px;
+        }
+
+        p {
+            font-size: 12px;
+            text-align: center;
+            /* color: #666; */
+            margin: 10px 0;
+        }
+        .sign{
+            /* border: 1px solid; */
+            display: flex;
+            justify-content: flex-end;
+            text-align: center;
+            padding-top: 3em;
+            padding-right: 1em;
+        }
+        .footer{
+            text-align: center;
+            line-height: 1px;
+            margin: 0;
+            padding: 0;
+        }
+        /* button */
+        .button {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.button button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #4CAF50; /* Green */
+    color: white;
+    font-size: 16px;
+}
+
+.button button:hover {
+    background-color: #45a049;
+}
+
+    </style>
+</head>
+<body>
+    <div class="certificate">
+        <div class="Title">
+            <h1><div class="logo"><img src="/src/main/resources/static/images/OIP.jpg"></div>Birth Certificate</h1>
+            <h6><center>(Under sect 12/17 of the region of Deaths Act 1900 angle of 8 of Tamil Nadu Region of 8th and Deaths 2000)</center></h6>
+        </div>
+        <p>This is to certify that the following information has been taken from the original record of which is in the register for of Talik of District of State</p>
+        <hr>
+            <table th:each="certificate: ${certificateDetails}">
+                <tr>
+                    <th>Application Id</th>
+                    <th>:</th>
+                    <td th:text="${certificate.applicationid}"></td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <th> : </th>
+                    <td th:text="${certificate.name}"></td>
+                </tr>
+                <tr>
+                    <th>Date Of Birth</th>
+                    <th> : </th>
+                    <td th:text="${certificate.DoB}"></td>
+                </tr>
+                <tr>
+                    <th>Sex</th>
+                    <th> : </th>
+                    <td th:text="${certificate.gender}"></td>
+                </tr>
+                <tr>
+                    <th>Birth Place</th>
+                    <th> : </th>
+                    <td th:text="${certificate.birthplace}"></td>
+                </tr>
+                <tr>
+                    <th>Father Name</th>
+                    <th> : </th>
+                    <td th:text="${certificate.fathername}"></td>
+                </tr>
+                <tr>
+                    <th>Mother Name</th>
+                    <th> : </th>
+                    <td th:text="${certificate.mothername}"></td>
+                </tr>
+                <tr>
+                    <th>Permanent Address</th>
+                    <th> : </th>
+                    <td th:text="${certificate.permanetadd}"></td>
+                </tr>
+                <tr>
+                    <th>Postal Address</th>
+                    <th> : </th>
+                    <td th:text="${certificate.postaladd}"></td>
+                </tr>
+                <tr>
+                    <th>Register Date</th>
+                    <th> : </th>
+                    <td th:text="${certificate.applyieddate}"></td>
+                </tr>
+                <tr>
+                    <th>Issue Date</th>
+                    <th> : </th>
+                    <td th:text="${certificate.updationdate}"></td>
+                </tr>
+        </table>
+        <div class="sign">
+            <h5>Signature <br>and <br> Address of issuing Authority</h5>
+        </div>
+        <hr>
+        <div class="footer">
+            <h6>Ensure Registration of Every Birth And Death</h6>
+        <h6>To apply  : <a href="/Index">Birth Certificate</a></h6>
+        </div>
+    </div>
+    <div class="button">
+        <!-- <button id="downloadButton" onclick="downloadCertificate()">Download</button> -->
+        <button id="printButton" onclick="printCertificate()">Print</button>
+    </div>
+    
+    <script>
+//     function downloadCertificate() {
+//     const element = document.querySelector('.certificate');
+//     const options = {
+//         filename: 'certificate.pdf',
+//         image: { type: 'jpeg', quality: 0.98 },
+//         html2canvas: { scale: 5 },
+//         jsPDF: { unit: 'pt', format: 'a4', orientation: 'portrait' },
+//         removeEmptyElements: true // This option removes empty space when generating the PDF
+//     };
+
+//     html2pdf().set(options).from(element).save();
+// }
+
+        function printCertificate() {
+            window.print();
+        }
+    </script>
+    
+</body>
+</html>

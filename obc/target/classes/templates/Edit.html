@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+    <style>
+        body {
+            margin: 1em;
+            padding: 1em;
+            background-color: rgb(10, 80, 200);
+        }
+        .container {  
+            padding: 50px;  
+            background-color: lightblue;
+            border-radius: 10px;  
+        }  
+        input[type="text"], input[type="password"], textarea {  
+            width: calc(100% - 30px);  
+            padding: 15px;  
+            margin: 5px 0 22px 0;  
+            display: inline-block;  
+            border: none;  
+            background: rgb(10, 80, 200);
+            color: white; 
+            border-radius: 10px; 
+        }  
+        input[type="text"]:focus, input[type="password"]:focus {  
+            background-color: rgb(10, 80, 200);  
+            outline: none;  
+        }  
+        div {  
+            padding: 10px 0;  
+        }  
+        hr {  
+            border: 1px solid #f1f1f1;  
+            margin-bottom: 25px;  
+        }  
+        .registerbtn {  
+            background-color: #4CAF50;  
+            color: white;  
+            padding: 16px 20px;  
+            margin: 8px 0;  
+            border: none;  
+            cursor: pointer;  
+            width: 100%;  
+            opacity: 0.9;
+            border-radius: 10px;  
+        }  
+        .registerbtn:hover {  
+            opacity: 1;  
+        }
+        .Form {
+            width: 80%;
+            min-width: 150PX;
+            margin-left: 175px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+        }
+        ::placeholder {
+            color: lightblue;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div id="Add Details" class="Form">
+        <div class="container">
+            <form action="/editApplication" method="post" th:each="applications: ${applications}">
+                <center><h1>Edit Application Details</h1></center>
+                <hr>
+                <input type="hidden" name="id" th:value="${applications.id}">
+                <input type="hidden" name="applicationid" th:value="${applications.applicationid}">
+                <input type="hidden" name="userid" th:value="${applications.userid}">
+                <input type="hidden" name="status" th:value="${applications.status}">
+                
+                <div>
+                    <label for="name"><b>Name :</b></label>
+                    <input type="text" name="name" id="name" placeholder="Name" th:value="${applications.name}">
+                </div>
+                <div>
+                    <label for="DoB"><b>Date Of Birth :</b></label>
+                    <input type="date" id="DoB" name="DoB" th:value="${applications.DoB}" required>
+                </div>
+                <div>
+                    <label for="gender"><b>Gender :</b></label>
+                    <input type="radio" id="gender" name="gender" value="Male" th:checked="${applications.gender == 'Male'}">Male
+                    <input type="radio" id="gender" name="gender" value="Female" th:checked="${applications.gender == 'Female'}">Female
+                </div>
+                <div>
+                    <label for="place"><b>Birth Place :</b></label>
+                    <input type="text" id="place" name="birthplace" placeholder="Birth Place" th:value="${applications.birthplace}" required>
+                </div>
+                <div>
+                    <label for="fathername"><b>Father Name :</b></label>
+                    <input type="text" id="fathername" name="fathername" placeholder="Father Name" th:value="${applications.fathername}" required>
+                </div>
+                <div>
+                    <label for="mothername"><b>Mother Name :</b></label>
+                    <input type="text" id="mothername" name="mothername" placeholder="Mother Name" th:value="${applications.mothername}" required>
+                </div>
+                <div>
+                    <label for="mobno"><b>Mobile Number :</b></label>
+                    <input type="text" id="country code" name="country code" value="+91" size="3" placeholder="Country Code" required>
+                    <input type="text" id="mobno" name="mobno" size="10" placeholder="Mobile Number" th:value="${applications.mobno}" required>
+                </div>
+                <div>
+                    <label for="permanetadd"><b>Permanet Address :</b></label>
+                    <textarea name="permanetadd" id="permanetadd" cols="80" rows="5" placeholder="Permanet Address" th:text="${applications.permanetadd}" required></textarea>
+                </div>                    
+                <div>
+                    <label for="postaladd"><b>Postal Address :</b></label>
+                    <textarea name="postaladd" id="postaladd" cols="80" rows="5" placeholder="Postal Address" th:text="${applications.postaladd}" required></textarea>
+                </div>
+                <div>
+                    <label for="email"><b>Email Id :</b></label>
+                    <input type="email" id="email" name="email" th:value="${applications.email}" required>
+                </div>
+                <button type="submit" class="registerbtn"><b>Update</b></button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

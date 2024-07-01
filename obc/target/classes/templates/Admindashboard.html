@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <title>OBCS Admin Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: rgb(10, 80, 200);
+        }
+        .sidebar {
+            width: 150px;
+            height: 100vh;
+            background-color: blue;
+            padding: 1em;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+        .button {
+            width: 150px;
+            margin: 1px;
+            border: 1px solid blue;
+            padding: 1em;
+            border-radius: 10px;
+            cursor: pointer;
+            display: block;
+            margin-bottom: 10px;
+        }
+        /* Style the sidenav links and the dropdown button */
+        .sidenav a, .dropdown-btn {
+            width: 150px;
+            margin: 1px;
+            border: 1px solid blue;
+            padding: 1em;
+            border-radius: 10px;
+            cursor: pointer;
+            display: block;
+            margin-bottom: 10px;
+        }
+        /* Add an active class to the active dropdown button */
+        .active {
+            background-color: lightskyblue;
+            color: black;
+        }
+
+        /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+        .dropdown-container {
+            display: none;
+            padding-left: 8px;
+        }
+
+        /* Optional: Style the caret down icon */
+        .fa-caret-down {
+            float: right;
+            padding-right: 8px;
+        }
+
+        /* Some media queries for responsiveness */
+        @media screen and (max-height: 450px) {
+            .sidenav {padding-top: 15px;}
+            .sidenav a {font-size: 18px;}
+        }
+
+        /* Main Page */
+        .main{
+            padding: 2em;
+        }
+        
+        .container {  
+            width: calc(100%-150px);
+            padding: 50px;  
+            /* background-color: lightblue;   */
+        }  
+        input[type="text"], input[type="password"], textarea {  
+            width: calc(100% - 30px);  
+            padding: 15px;  
+            margin: 5px 0 22px 0;  
+            display: inline-block;  
+            border: none;  
+            background: #f1f1f1;  
+        }  
+        input[type="text"]:focus, input[type="password"]:focus {  
+            background-color: orange;  
+            outline: none;  
+        }  
+        div {  
+            padding: 10px 0;  
+        }  
+        hr {  
+            border: 1px solid #f1f1f1;  
+            margin-bottom: 25px;  
+        }  
+        .registerbtn {  
+            background-color: #4CAF50;  
+            color: white;  
+            padding: 16px 20px;  
+            margin: 8px 0;  
+            border: none;  
+            cursor: pointer;  
+            width: 100%;  
+            opacity: 0.9;  
+        }  
+        .registerbtn:hover {  
+            opacity: 1;  
+        }
+        .Form {
+            min-width: 150PX;
+            margin: 2em 10em;
+            padding: 20px;
+            display: none;
+            background-color: white;
+            border-radius: 10px;
+            overflow-y: auto;
+            max-height: 500px;
+            overflow-x: auto; 
+            max-width: 1000px
+        }
+        /* Box */
+        .card-board{
+            display: flex;
+            flex-wrap: wrap;
+            margin: 2em 10em;
+
+        }
+        .card{
+            width: 230px;
+            height: 100px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            margin: 5px;
+        }
+        .card-icon{
+            display: flex;
+            
+        }
+        .card-icon i{
+            margin: 15px 0;
+            cursor: pointer;
+            font-size: 20px;
+            margin-right: 12.5rem;
+            color: rgb(83, 82, 82);
+        }
+        .card span{
+            font-size: 12px;
+            color: rgb(151, 151, 151);
+        }
+        .card h5{
+            margin-top: 5px;
+        }
+        /* Table Details */
+        table h1
+        {
+            color: #dddddd;
+            text-align: center;
+            font-style: oblique;
+        }
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: auto;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+        .action-buttons button {
+            margin-right: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <button class="button tablink" onclick="application(event,'Home')"><i class="fa fa-home" aria-hidden="true"></i> Home</button>
+        <button class="dropdown-btn">Applyied Certificate <i class="fa fa-caret-down"></i></button>
+          <div class="dropdown-container">
+            <button class="button tablink" onclick="application(event,'Pending Application')"><i class="fa fa-file" aria-hidden="true"></i> Pending Application</button>
+            <button class="button tablink" onclick="application(event,'Verified Application')"><i class="fa fa-file" aria-hidden="true"></i> Verified Application</button>
+            <button class="button tablink" onclick="application(event,'Rejected Application')"><i class="fa fa-file" aria-hidden="true"></i> Rejected Application</button>
+            <button class="button tablink" onclick="application(event,'All Application')"><i class="fa fa-file" aria-hidden="true"></i> All Application</button>
+          </div>
+        <button class="button tablink" onclick="application(event,'B/W date Report')"><i class="fa fa-calendar" aria-hidden="true"></i> B/W Date Report</button>
+        <button class="button tablink" onclick="application(event,'Search')"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+        <button class="button tablink" onclick="application(event,'Registered User')"><i class="fa fa-user" aria-hidden="true"></i> Registered User</button>
+        <button class="button tablink" onclick="logoutAdmin()"><i class="fa fa-sign-out" aria-hidden="true"></i> Log out</button>
+    </div>
+    <div class="main" id="main">
+        <div id="Home" class="Form" style="display: contents; background-color: rgb(10, 80, 200);">
+            <div class="card-board">
+                <div class="card" onclick="openBox(event,'Pending Application')">
+                    <div class="card-icon">
+                        <i class="fas fa-file" aria-hidden="true"></i>
+                        <i class="fas fa-ellipsis-v"></i>
+                    </div>
+                    <span>Pending Application</span>
+                    <h5>Total Pending Application : <span th:text="${pendingApplicationsCount}"></span></h5>
+                </div>
+                
+                <div class="card" onclick="openBox(event,'Verified Application')">
+                    <div class="card-icon">
+                        <i class="fas fa-file" aria-hidden="true"></i>
+                        <i class="fas fa-ellipsis-v"></i>
+                    </div>
+                    <span>Verified Application</span>
+                    <h5>Total Verified Application : <span th:text="${approvedApplicationsCount}"></span></h5>
+                </div>
+                
+                <div class="card" onclick="openBox(event,'Rejected Application')">
+                    <div class="card-icon">
+                        <i class="fas fa-file" aria-hidden="true"></i>
+                        <i class="fas fa-ellipsis-v"></i>
+                    </div>
+                    <span>Rejected Application</span>
+                    <h5>Total Rejected Application : <span th:text="${rejectedApplicationsCount}"></span></h5>
+                </div>
+                
+                <div class="card" onclick="openBox(event,'All Application')">
+                    <div class="card-icon">
+                        <i class="fas fa-file" aria-hidden="true"></i>
+                        <i class="fas fa-ellipsis-v"></i>
+                    </div>
+                    <span>All Application</span>
+                    <h5>Total Application : <span th:text="${totalApplications}"></span></h5>
+                </div>
+                
+            </div>
+        </div>
+
+        <div id="Pending Application" class="Form" style="display: none;">
+            <h2>Pending Application</h2>
+            <table border="1">
+                <tr>
+                    <th>ID</th>
+                    <th>Application Id</th>
+                    <th>User Id</th>
+                    <th>Name</th>
+                    <th>Date of birth</th>
+                    <th>Gender</th>
+                    <th>Birth Place</th>
+                    <th>Father Name</th>
+                    <th>Mother Name</th>
+                    <th>Mobile Number</th>
+                    <th>Permenat Address</th>
+                    <th>Postal Address</th>
+                    <th>E-Mail</th>
+                    <th>Status</th>
+                    <th>Change Status</th>
+                    <th>Actions</th>
+                </tr>
+                <tr th:each="pendingApplications: ${pendingApplications}">
+                    <td th:text="${pendingApplications.id}"></td>
+                    <td th:text="${pendingApplications.applicationid}"></td>
+                    <td th:text="${pendingApplications.userid}"></td>
+                    <td th:text="${pendingApplications.name}"></td>
+                    <td th:text="${pendingApplications.DoB}"></td>
+                    <td th:text="${pendingApplications.gender}"></td>
+                    <td th:text="${pendingApplications.birthplace}"></td>
+                    <td th:text="${pendingApplications.fathername}"></td>
+                    <td th:text="${pendingApplications.mothername}"></td>
+                    <td th:text="${pendingApplications.mobno}"></td>
+                    <td th:text="${pendingApplications.permanetadd}"></td>
+                    <td th:text="${pendingApplications.postaladd}"></td>
+                    <td th:text="${pendingApplications.email}"></td>
+                    <td th:text="${pendingApplications.status}"></td>
+                    <td>
+                        <form th:action="@{/Admindashboard/applications/update-status}" method="post">
+                            <input type="hidden" th:name="id" th:value="${pendingApplications.id}">
+                            <input type="hidden" th:name="id" th:value="${pendingApplications.id}">
+                            <select name="status">
+                                <option value="approve">Approve</option>
+                                <option value="pending">Pending</option>
+                                <option value="reject">Reject</option>
+                            </select>
+                            <button type="submit">Update</button>
+                        </form>
+                    </td>
+                    <td> 
+                        <a th:href="@{/View/{id}(id=${pendingApplications.id})}">View</a>
+                        <a th:href="@{/Admindashboard/delete/{id}(id=${pendingApplications.id})}" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+
+                </tr>
+            </table>
+         </div>
+
+        <div id="Verified Application" class="Form" style="display: none;">
+            <h2>Verified Application</h2>
+            <table border="1">
+                <tr>
+                    <th>ID</th>
+                    <th>Application Id</th>
+                    <th>User Id</th>
+                    <th>Name</th>
+                    <th>Date of birth</th>
+                    <th>Gender</th>
+                    <th>Birth Place</th>
+                    <th>Father Name</th>
+                    <th>Mother Name</th>
+                    <th>Mobile Number</th>
+                    <th>Permenat Address</th>
+                    <th>Postal Address</th>
+                    <th>E-Mail</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+
+                </tr>
+                <tr th:each="approvedApplications: ${approvedApplications}">
+                    <td th:text="${approvedApplications.id}"></td>
+                    <td th:text="${approvedApplications.applicationid}"></td>
+                    <td th:text="${approvedApplications.userid}"></td>
+                    <td th:text="${approvedApplications.name}"></td>
+                    <td th:text="${approvedApplications.DoB}"></td>
+                    <td th:text="${approvedApplications.gender}"></td>
+                    <td th:text="${approvedApplications.birthplace}"></td>
+                    <td th:text="${approvedApplications.fathername}"></td>
+                    <td th:text="${approvedApplications.mothername}"></td>
+                    <td th:text="${approvedApplications.mobno}"></td>
+                    <td th:text="${approvedApplications.permanetadd}"></td>
+                    <td th:text="${approvedApplications.postaladd}"></td>
+                    <td th:text="${approvedApplications.email}"></td>
+                    <td th:text="${approvedApplications.status}"></td>
+                    <td> 
+                        <a th:href="@{/View/{id}(id=${approvedApplications.id})}">View</a>
+                        <a th:href="@{/Admindashboard/delete/{id}(id=${approvedApplications.id})}" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="Rejected Application" class="Form">
+            <h2>Rejected Application</h2>
+            <table border="1">
+                <tr>
+                    <th>ID</th>
+                    <th>Application Id</th>
+                    <th>User Id</th>
+                    <th>Name</th>
+                    <th>Date of birth</th>
+                    <th>Gender</th>
+                    <th>Birth Place</th>
+                    <th>Father Name</th>
+                    <th>Mother Name</th>
+                    <th>Mobile Number</th>
+                    <th>Permenat Address</th>
+                    <td>Postal Address</td>
+                    <td>E-Mail</td>
+                    <td>Status</td>
+                    <th>Actions</th>
+                </tr>
+                <tr th:each="rejectedApplications: ${rejectedApplications}">
+                    <td th:text="${rejectedApplications.id}"></td>
+                    <td th:text="${rejectedApplications.applicationid}"></td>
+                    <td th:text="${rejectedApplications.userid}"></td>
+                    <td th:text="${rejectedApplications.name}"></td>
+                    <td th:text="${rejectedApplications.DoB}"></td>
+                    <td th:text="${rejectedApplications.gender}"></td>
+                    <td th:text="${rejectedApplications.birthplace}"></td>
+                    <td th:text="${rejectedApplications.fathername}"></td>
+                    <td th:text="${rejectedApplications.mothername}"></td>
+                    <td th:text="${rejectedApplications.mobno}"></td>
+                    <td th:text="${rejectedApplications.permanetadd}"></td>
+                    <td th:text="${rejectedApplications.postaladd}"></td>
+                    <td th:text="${rejectedApplications.email}"></td>
+                    <td th:text="${rejectedApplications.status}"></td>
+                    <td> 
+                        <a th:href="@{/View/{id}(id=${rejectedApplications.id})}">View</a>
+                        <a th:href="@{/Admindashboard/delete/{id}(id=${rejectedApplications.id})}" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="All Application" class="Form">
+            <h2>All Application</h2>
+            <table border="1">
+                <tr>
+                    <th>ID</th>
+                    <th>Application Id</th>
+                    <th>User Id</th>
+                    <th>Name</th>
+                    <th>Date of birth</th>
+                    <th>Gender</th>
+                    <th>Birth Place</th>
+                    <th>Father Name</th>
+                    <th>Mother Name</th>
+                    <th>Mobile Number</th>
+                    <th>Permenat Address</th>
+                    <th>Postal Address</th>
+                    <th>E-Mail</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                <tr th:each="applications: ${applications}">
+                    <td th:text="${applications.id}"></td>
+                    <td th:text="${applications.applicationid}"></td>
+                    <td th:text="${applications.userid}"></td>
+                    <td th:text="${applications.name}"></td>
+                    <td th:text="${applications.DoB}"></td>
+                    <td th:text="${applications.gender}"></td>
+                    <td th:text="${applications.birthplace}"></td>
+                    <td th:text="${applications.fathername}"></td>
+                    <td th:text="${applications.mothername}"></td>
+                    <td th:text="${applications.mobno}"></td>
+                    <td th:text="${applications.permanetadd}"></td>
+                    <td th:text="${applications.postaladd}"></td>
+                    <td th:text="${applications.email}"></td>
+                    <td th:text="${applications.status}"></td>
+                    <td> 
+                        <a th:href="@{/View/{id}(id=${applications.id})}">View</a>
+                        <a th:href="@{/Admindashboard/delete/{id}(id=${applications.id})}" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="B/W date Report" class="Form">
+            <h2>B/W date Report</h2>
+            <form th:action="@{/betweenDate}" method="get">
+                Start Date: <input type="date" name="startDate"><br>
+                <br>
+                End Date: <input type="date" name="endDate"><br>
+                <br>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <div id="Search" class="Form">
+            <h2>Search</h2>
+            <form id="searchForm" action="/search" method="get">
+                <input type="text" name="query" placeholder="Enter search query">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+        
+        <div id="Registered User" class="Form">
+            <h2>Registered User</h2>
+            <table border="1">
+                <tr>
+                    <th>ID</th>
+                    <th>Application Id</th>
+                    <th>User Id</th>
+                    <th>Name</th>
+                    <th>Date of birth</th>
+                    <th>Gender</th>
+                    <th>Birth Place</th>
+                    <th>Father Name</th>
+                    <th>Mother Name</th>
+                    <th>Mobile Number</th>
+                    <th>Permenat Address</th>
+                    <th>Postal Address</th>
+                    <th>E-Mail</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                <tr th:each="applications: ${applications}">
+                    <td th:text="${applications.id}"></td>
+                    <td th:text="${applications.applicationid}"></td>
+                    <td th:text="${applications.userid}"></td>
+                    <td th:text="${applications.name}"></td>
+                    <td th:text="${applications.DoB}"></td>
+                    <td th:text="${applications.gender}"></td>
+                    <td th:text="${applications.birthplace}"></td>
+                    <td th:text="${applications.fathername}"></td>
+                    <td th:text="${applications.mothername}"></td>
+                    <td th:text="${applications.mobno}"></td>
+                    <td th:text="${applications.permanetadd}"></td>
+                    <td th:text="${applications.postaladd}"></td>
+                    <td th:text="${applications.email}"></td>
+                    <td th:text="${applications.status}"></td>
+                    <td> 
+                        <a th:href="@{/View/{id}(id=${applications.id})}">View</a>
+                        <a th:href="@{/Admindashboard/delete/{id}(id=${applications.id})}" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script>
+        // Button Function
+        function application(evt, Form) {
+            var i, x, tablinks;
+            x = document.getElementsByClassName("Form");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("red");
+            }
+            if(Form == "Home"){
+                document.getElementById(Form).style.display = "contents";
+
+            }
+            else{
+
+                document.getElementById(Form).style.display = "block";
+            }
+            evt.currentTarget.className += " red";
+        }
+
+        // Dropdown Menu
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
+
+        for (i = 0; i < dropdown.length; i++) 
+        {
+            dropdown[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var dropdownContent = this.nextElementSibling;
+            if (dropdownContent.style.display === "block") 
+            {
+                dropdownContent.style.display = "none";
+            } 
+            else 
+            {
+                dropdownContent.style.display = "block";
+            }
+            });
+        }
+
+        // Box
+        function openBox(evt, boxName) {
+            var i, x;
+            x = document.getElementsByClassName("Form");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            document.getElementById(boxName).style.display = "block";
+        }
+        // logout
+        function logoutAdmin() 
+        {
+            window.location.href = "/logoutAdmin"; // Redirect to the logout endpoint
+        }
+    </script>
+</body>
+</html>
